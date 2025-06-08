@@ -1,5 +1,6 @@
 package br.edu.unifaj.cc.poo.pingoosb.service;
 
+import br.edu.unifaj.cc.poo.pingoosb.dto.AnotacoesAulaRequest;
 import br.edu.unifaj.cc.poo.pingoosb.dto.AulaRequest;
 import br.edu.unifaj.cc.poo.pingoosb.dto.AulaResponse;
 import br.edu.unifaj.cc.poo.pingoosb.dto.NotaRequest;
@@ -71,6 +72,20 @@ public class AulaService {
         if (aulaOpt.isPresent()) {
             Aula aula = aulaOpt.get();
             aula.getNotas().add(new Nota(notaRequest.getValor(), notaRequest.getDescricao()));
+            return toResponse(aula);
+        } else {
+            throw new RuntimeException("Aula não encontrada com id: " + id);
+        }
+    }
+
+    public AulaResponse adicionarAnotacao(int id, AnotacoesAulaRequest anotacaoRequest) {
+        Optional<Aula> aulaOpt = aulas.stream()
+                .filter(a -> a.getId() == id)
+                .findFirst();
+
+        if (aulaOpt.isPresent()) {
+            Aula aula = aulaOpt.get();
+            aula.getAnotacoes().add(anotacaoRequest.getTexto());
             return toResponse(aula);
         } else {
             throw new RuntimeException("Aula não encontrada com id: " + id);

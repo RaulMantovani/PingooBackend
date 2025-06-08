@@ -1,5 +1,6 @@
 package br.edu.unifaj.cc.poo.pingoosb.controller;
 
+import br.edu.unifaj.cc.poo.pingoosb.dto.AnotacoesAulaRequest;
 import br.edu.unifaj.cc.poo.pingoosb.dto.AulaRequest;
 import br.edu.unifaj.cc.poo.pingoosb.dto.AulaResponse;
 import br.edu.unifaj.cc.poo.pingoosb.dto.NotaRequest;
@@ -37,6 +38,16 @@ public class AulaController {
     public ResponseEntity<AulaResponse> adicionarNota(@PathVariable int id, @RequestBody NotaRequest notaRequest) {
         try {
             AulaResponse atualizada = aulaService.adicionarNota(id, notaRequest);
+            return ResponseEntity.ok(atualizada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{id}/anotacoes")
+    public ResponseEntity<AulaResponse> adicionarAnotacao(@PathVariable int id, @RequestBody AnotacoesAulaRequest anotacaoRequest) {
+        try {
+            AulaResponse atualizada = aulaService.adicionarAnotacao(id, anotacaoRequest);
             return ResponseEntity.ok(atualizada);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
