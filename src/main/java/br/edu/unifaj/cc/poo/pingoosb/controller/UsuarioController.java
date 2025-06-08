@@ -17,6 +17,7 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     public UsuarioResponse registrar(@RequestBody UsuarioRegistro dto) {
+
         return usuarioService.registrar(dto);
     }
 
