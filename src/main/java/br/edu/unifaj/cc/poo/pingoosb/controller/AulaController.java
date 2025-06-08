@@ -63,5 +63,15 @@ public class AulaController {
     public AulaResponse atualizarAula(@PathVariable int id, @RequestBody AulaRequest request) {
         return aulaService.atualizarAula(id, request);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirAula(@PathVariable int id) {
+        try {
+            aulaService.excluirAula(id);
+            return ResponseEntity.noContent().build(); // HTTP 204
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // HTTP 404
+        }
+    }
 }
 

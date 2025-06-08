@@ -92,6 +92,13 @@ public class AulaService {
         }
     }
 
+    public void excluirAula(int id) {
+        boolean removida = aulas.removeIf(aula -> aula.getId() == id);
+        if (!removida) {
+            throw new RuntimeException("Aula não encontrada com id: " + id);
+        }
+    }
+
     private AulaResponse toResponse(Aula aula) {
         return new AulaResponse(
                 aula.getId(),
